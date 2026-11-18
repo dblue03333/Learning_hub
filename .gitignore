@@ -1,0 +1,11 @@
+# Papers & binary assets
+*.pdf
+
+# macOS
+.DS_Store
+
+# Python / experiments
+__pycache__/
+*.pyc
+.venv/
+.env
