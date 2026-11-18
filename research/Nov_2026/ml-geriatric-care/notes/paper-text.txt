@@ -1,0 +1,1460 @@
+--- PDF page 1 ---
+Please do not remove this page
+Machine learning in geriatric care: a scoping
+review of models using multidimensional
+assessment data
+Mangio, Angela Mari; Miller, Caitlin; Jayan, Lakshmi; Ben-Dekhil, Susan; et al.
+https://researchportal.scu.edu.au/esploro/outputs/journalArticle/Machine-learning-in-geriatric-care-a/991013339789902368/filesAndLinks?index=0
+Mangio, A. M., Miller, C., Jayan, L., Ben-Dekhil, S., Dao-Tran, T.-H., & Dendere, R. (2026). Machine learning
+in geriatric care: a scoping review of models using multidimensional assessment data. International
+Journal of Medical Informatics, 207, Article 106181. https://doi.org/10.1016/j.ijmedinf.2025.106181
+Published Version: https://doi.org/10.1016/j.ijmedinf.2025.106181
+Document Version: Published (Version of record)
+Downloaded On 2026/11/19 04:57:43 +1100
+© 2025 The Author(s).
+Research:Open
+CC BY V4.0
+crossconnect@scu.edu.au
+Southern Cross University Cross Connect: https://researchportal.scu.edu.au/esploro/
+Please do not remove this page
+
+
+--- PDF page 2 ---
+Review article
+Machine learning in geriatric care: a scoping review of models using 
+multidimensional assessment data
+Angela Mari Mangio , Caitlin Miller , Lakshmi Jayan , Susan Ben-Dekhil , Tiet-Hanh Dao-Tran ,  
+Ronald Dendere *
+Centre for Health Services Research, Faculty of Health, Medicine & Behavioural Sciences, The University of Queensland, Brisbane, Australia
+ARTICLE INFO
+Keywords:
+Machine learning
+Geriatric assessment
+Artificial intelligence
+Predicitive modelling
+Older adults
+Aged care
+ABSTRACT
+Background: Geriatric assessments capture multidimensional data on physical, cognitive, psychological, and 
+social health, offering opportunities to apply machine learning (ML) to support clinical decision-making in aged 
+care. However, the application of ML to such data has not been systematically synthesised.
+Objective: To describe the types of data used, purposes, and performance of ML models applied to multidimen-
+sional geriatric assessment data.
+Methods: A scoping review was conducted following the Arksey and O’Malley framework and reported using 
+PRISMA-ScR guidelines. Six databases were searched for peer-reviewed studies (2012––2024) applying ML to 
+multidimensional geriatric assessment data. Data were charted on study design, setting, algorithms, outcomes, 
+and model performance. Methodological quality was assessed using the PROBAST + AI tool.
+Results: Forty studies met inclusion criteria, most from high-income countries and community or hospital set-
+tings. Frequently modelled outcomes included falls, functional decline, frailty, mortality, and hospital read-
+mission. The most common data domains were comorbidities, cognition, mood, and ADL/IADL. Most studies 
+(25/40) compared multiple algorithms, with the XGBoost emerging as the top-performing model in eight studies. 
+Although internal validation was common, no study performed external validation. Performance metrics varied 
+widely, and methodological limitations such as small sample sizes, lack of calibration, and data imbalance were 
+common.
+Conclusion: ML models using multidimensional geriatric assessment data show promise for predicting health 
+outcomes in older adults. However, methodological and reporting limitations hinder clinical translation. Future 
+research should focus on external validation, interpretability, and integration into clinical workflows to ensure 
+models are robust, ethical, and applicable in real-world aged care settings.
+1. Introduction
+The World Health Organisation estimates that one in six people will 
+be aged 60 years or older by 2030 [1]. In 2020, this demographic was 
+approximately one billion people and is projected to double by 2050 [1]. 
+Ageing is a risk factor for chronic conditions such as neurodegenerative, 
+metabolic, cardiovascular, immune system, and musculoskeletal dis-
+eases [2]. Furthermore, many older people develop multiple comor-
+bidities as they age [2], and diseases in this group accounted for 23 % of 
+the global disease burden [3]. As the population of older people con-
+tinues to grow, the demand for health and aged care services will rise 
+alongside increasing complexity in care needs, driven by 
+multimorbidity, frailty, and the need for coordinated, long-term 
+management.
+Emerging digital technologies such as artificial intelligence (AI) have 
+the potential to support the management of health problems in the care 
+provision for older people [4]. AI mimics human cognitive function and 
+human intelligence to learn and solve real-world problems [5]. Machine 
+learning (ML), a branch of AI, encompasses algorithms that enable 
+computers to identify patterns within large training datasets and derive 
+rules to classify or predict outcomes for new data, without explicit 
+programming [6,7]. Machine learning algorithms can be categorised as 
+supervised and unsupervised learning based on how they are trained 
+[7]. Supervised ML models are trained on labelled datasets, where each 
+* Corresponding author at: Centre for Health Services Research, Faculty of Health, Medicine & Behavioural Sciences, The University of Queensland, Level 2, 
+Building 33, Princess Alexandra Hospital, Woolloongabba, QLD 4102, Australia.
+E-mail address: r.dendere@uq.edu.au (R. Dendere). 
+Contents lists available at ScienceDirect
+International Journal of Medical Informatics
+journal homepage: www.elsevier.com/locate/ijmedinf
+https://doi.org/10.1016/j.ijmedinf.2025.106181
+Received 29 August 2025; Received in revised form 7 November 2025; Accepted 7 November 2025  
+International Journal of Medical Informatics 207 (2026) 106181 
+Available online 20 November 2025 
+1386-5056/© 2025 The Author(s). Published by Elsevier B.V. This is an open access article under the CC BY license ( http://creativecommons.org/licenses/by/4.0/ ). 
+
+--- PDF page 3 ---
+data point includes an outcome of interest (e.g., individuals diagnosed 
+with or without Alzheimer’s disease). In contrast, unsupervised ML 
+models are trained on unlabelled data [7].
+AI and ML techniques are increasingly being used in aged care set-
+tings to address the complex physical and psychosocial needs of older 
+people [5,8]. Applications include prevention of adverse events (e.g., 
+prediction of falls risk, frailty, and functional decline), screening for 
+common geriatric syndromes (e.g., Alzheimer’s disease, mild cognitive 
+impairment, and Parkinson’s disease), and supporting daily living (e.g., 
+medication identification, activity monitoring, and physical exercise 
+tracking) [8–10]. Furthermore, AI-powered systems are being designed 
+to complement the roles traditionally held by healthcare providers, 
+including rehabilitation, emotional support, social facilitation, super-
+vision, and cognitive stimulation [5]. These systems often rely on 
+diverse data sources such as electronic health records, sensor data, and 
+medical images. However, in this study, our focus is on machine learning 
+algorithms that leverage geriatric assessment data.
+Geriatric assessments help to detect impairments in older people and 
+facilitate development of care plans targeting those impairments. Such 
+assessments can be dimension-specific (e.g., the mini-mental state ex-
+amination (MMSE) for assessing cognition) or can cover multiple di-
+mensions, e.g., comprehensive geriatric assessment (CGA), that span the 
+functional, physical health, cognitive impairment and mental health, 
+and psychosocial domains [11]. The rich data generated during CGA 
+may be used for purposes beyond their originally intended application, 
+for example, predicting outcomes using ML models [12,13]. The appli-
+cation of ML in this way can identify and analyse patterns in large 
+datasets with many variables, making them ideal tools for analysing 
+multi-dimensional geriatric assessments characterised by complex 
+interplay between geriatric syndromes and their impact on health out-
+comes [5,14]. However, literature on this emerging field of using geri-
+atric assessment data in machine learning models has not been clearly 
+synthesised and described. Therefore, this study sought to conduct a 
+scoping review to address the following research questions: 
+What data from or equivalent to multi-dimensional geriatric assess-
+ments have been used in machine learning (ML)?
+For what purpose have such data and ML models been used?
+What is the performance of the ML models for their intended 
+purposes?
+2. Aim
+The aim of this scoping review was to describe the application of ML 
+approaches utilising geriatric assessment data representing multiple 
+dimensions of geriatric care in managing the health of older people.
+We chose to conduct a scoping review instead of a systematic review 
+and meta-analysis because the application of ML to multidimensional 
+geriatric assessment data is an emerging area. To our knowledge, no 
+existing reviews have comprehensively mapped the breadth and char-
+acteristics of studies in this specific domain. A scoping review was 
+appropriate to explore the extent, range, and nature of the available 
+evidence, identify key concepts, and highlight gaps to inform future 
+research: therefore, a quantitative synthesis was out of scope.
+3. Materials and methods
+The scoping review was conducted using the Arksey and O’Malley’s 
+framework [15]. This framework consists of five stages: (1) identifying 
+the research question, (2) identifying relevant studies, (3) study selec-
+tion, (4) charting the data, and (5) collating, summarizing and reporting 
+the results [15]. The Preferred Reporting Items for Systematic Reviews 
+and Meta-Analyses extension for scoping reviews (PRISMA-ScR) were 
+used for reporting the review [16].
+3.1. Eligibility criteria
+We sought to include original, quantitative peer-reviewed studies 
+describing the application of ML approaches to process geriatric as-
+sessments data covering multiple dimensions (i.e., more than one 
+dimension) in any setting (hospital, residential aged care facilities - also 
+known as nursing homes, long-term care facilities, community aged 
+care, home care, and primary care). We included articles that processed 
+data from electronic health records (EHRs) if the data was equivalent to 
+multidimensional geriatric assessment data on their own or when 
+combined with other sources. For example, articles utilising EHR- 
+sourced comorbidities and medications (i.e., multimorbidity and poly-
+pharmacy dimensions, respectively), and combined with data from a 
+mini-mental state examination (i.e., cognition dimension). We excluded 
+articles with study populations aged < 65; describing ML to develop or 
+conduct geriatric assessments or reporting the use of only data from 
+sensors, robotics, and diagnostic tests. Reviews, qualitative studies, and 
+grey literature (e.g., conference posters, abstracts, theses), and articles 
+published in languages other than English or not available in full text 
+were also excluded. Table 1 provides the details of the eligibility criteria 
+for inclusion in the review.
+3.2. Information sources and search
+We searched six research databases (PubMed, CINAHL, Web of Sci-
+ence, Scopus, IEEE Xplore, and ACM) using Boolean operators to 
+combine relevant keywords and their associated vocabulary terms in 
+each database: e.g., medical subject headings (MeSH) in PubMed. Key-
+words for the search were divided into three concepts as follows: (arti-
+ficial intelligence OR machine learning) AND (geriatric assessment OR 
+comprehensive geriatric assessment) AND (older adult OR elderly). The 
+retrieval strategy was tailored to each database as needed: e.g., the IEEE 
+Xplore database does not use a vocabulary equivalent to MeSH terms 
+used for PubMed. After completing the screening process, we manually 
+searched the reference lists in all articles selected for inclusion to 
+identify any additional relevant articles that may have been missed 
+during the database searches. Searches were completed on 20 February 
+2024. The full search terms are provided in supplementary material.
+3.3. Screening
+After removing duplicates in the database searches using a reference 
+management software (EndNote), the articles retrieved were imported 
+into Covidence software for the screening process. Two reviewers 
+independently screened the search results at each stage. Titles and ab-
+stracts were screened first (reviewers RD and LJ) and followed by full 
+texts for detailed screening (reviewers RD and THDT). Team discussions 
+Table 1 
+Eligibility criteria for inclusion of the studies in this review.
+Inclusion criteria Exclusion criteria
+Population Aged 65+ Aged < 65
+Intervention ML models using multidimensional 
+geriatric assessment data
+Use of ML to develop or 
+conduct assessments 
+Use of data from sensors, 
+robotics, and diagnostic 
+tests alone
+Context Any (hospital, residential aged care, 
+community aged care, primary care)
+N/A
+Outcome Any None
+Others Quantitative studies 
+Original peer-reviewed studies 
+Published between 2012–2024 
+Published in English 
+Full text available
+Qualitative studies 
+Secondary research, grey 
+literature 
+Published prior 2012 
+Published in languages 
+other than English 
+Full text not available
+A.M. Mangio et al.                                                                                                                                                                                                                             International Journal of Medical Informatics 207 (2026) 106181 
+2 
+
+--- PDF page 4 ---
+were conducted to resolve any conflicts in screening and reach a 
+consensus for the study to be included in the review.
+3.4. Data extraction and synthesis
+The research team jointly developed a data extraction form. Three 
+researchers (RD, SBD, AMM) independently extracted data using the 
+form. Extracted data included first author, publication year, aim/ 
+objective, country where the study was conducted, study design, study 
+setting, sample size, sample population, geriatric assessment data used, 
+method of data collection, ML techniques used, target outcomes, find-
+ings, limitations and performance evaluation metrics. Inconsistencies in 
+the extracted data were resolved in team discussions. We performed a 
+narrative synthesis of the evidence derived from the included articles.
+3.5. Quality assessment
+We used the Prediction model Risk Of Bias ASsessment Tool for 
+Artificial Intelligence (PROBAST + AI) to evaluate the methodological 
+quality, risk of bias, and applicability of included ML models [17]. The 
+tool comprises two components: one for assessing the quality of model 
+development and another for evaluating the risk of bias in model per-
+formance. Each component is assessed across four domains (participants 
+and data sources, predictors, outcomes, and analysis). Assessments were 
+made independently by two reviewers (RD, LJ), with discrepancies 
+resolved through discussion to reach consensus as recommended by the 
+developers of the PROBAST + AI tool [17].
+4. Results
+4.1. Search and screening
+A total of 964 articles were retrieved during database search. After 
+removing duplicates and title/abstract screening, 593 records were 
+excluded, with the top reasons being: no geriatric assessment data (324), 
+wrong population (93), remote monitoring (87), and no machine 
+learning (59). Seventy-eight articles were assessed for eligibility via full 
+text, and 48 were excluded. An additional 10 records were identified 
+through examining the reference lists of the 30 articles identified for 
+inclusion through full text, resulting in 40 studies included in the final 
+review (see Fig. 1).
+4.2. Characteristics of included studies
+Most of the studies were conducted in the USA (n = 9), followed by 
+Canada (n = 5), France (n = 4), and Japan (n = 4). Other countries, 
+which had three studies or less include Taiwan, Australia, Italy, Mexico, 
+China, Finland, Iran, Colombia, Spain, and The Netherlands (see 
+Table 2). Most studies were set in community settings (n = 21) followed 
+by hospital (n = 13), home care (n = 2), and residential aged care facility 
+(n = 2). One study was set in both community and residential aged care 
+facility, and another study was set in multiple settings. Publication years 
+ranged from 2012 to 2023, with the number of publications increasing 
+over time. An overview of the included studies is provided in Table 2
+while detailed characteristics for each study are provided in supple-
+mentary material.
+Fig. 1. PRISMA flow chart of literature search and selection process.
+A.M. Mangio et al.                                                                                                                                                                                                                             International Journal of Medical Informatics 207 (2026) 106181 
+3 
+
+--- PDF page 5 ---
+Table 2 
+Characteristics of included studies.
+First author 
+and year
+Country Setting Aim/Objective Target outcome Model performance**, ∧
+Ambagtsheer 
+et al., 2020 
+[18]
+Australia Residential aged 
+care
+To assess the performance of ML models in 
+identifying frailty in residents aged 75 +
+using administrative data from aged care 
+facilities, compared to the electronic 
+Frailty Index, and to identify the top- 
+performing models.
+Frailty The best performing model had high 
+accuracy (93.48 %), positive agreement 
+(90.0 %), sensitivity (97.83 %), specificity 
+(89.13 %), Kappa (0.87) and PABAK (0.87) 
+but low negative agreement (2.38 %).
+Armstrong et al., 
+2012[19]
+Canada Home care To enhance the understanding of the 
+elderly using census-level data and the K- 
+means clustering algorithm.
+None Not evaluated
+Byeon et al., 
+2021[20]
+South Korea Community To support ageing policy development by 
+predicting physical impairment risk among 
+community-dwelling Korean elderly, and 
+to improve ensemble-based ML models for 
+imbalanced health data through 
+comparative analysis of sampling methods
+Functional 
+impairment
+The best performing model had moderate 
+accuracy (67 %) but high sensitivity (81 %) 
+and specificity (75 %).
+Cano-Escalera 
+et al., 2022 
+[21]
+Spain Hospital To identify risk factors for delirium 
+condition at hospital admittance.
+Delirium The best performing model had high 
+accuracy (79.8 %) and F1-score (0.755) but 
+moderate AUC (0.743).
+Castillo-Olea 
+et al., 2020 
+[22]
+Mexico Hospital To evaluate the prevalence of the level of 
+sarcopenia in a population of chronically ill 
+patients assessed at a general hospital and 
+to classify the variables that determine the 
+level of moderate or severe sarcopenia, 
+depending on the case, with the use of ML 
+models.
+Sarcopenia The best performing model had high 
+accuracy (83.1 %), F1-score (0.9), and 
+precision (86.4 %).
+Cheng et al., 
+2015[23]
+Canada Home care To identify interRAI HC items predictive of 
+rehabilitation service use via ML, and 
+compare them with expert-selected items 
+from the Rehabilitation Algorithm (RA).
+Use of 
+rehabilitation 
+services
+Not evaluated
+Chew et al., 
+2022[24]
+Singapore Community To assess the prevalence and associated 
+factors of sarcopenia in community- 
+dwelling older adults (≥65) at risk of 
+malnutrition based on the MUST.
+Sarcopenia Not evaluated
+Chu et al., 2022 
+[25]
+Taiwan Hospital To develop a fall risk prediction model for 
+hospitalized older adults using ML with 
+EHR and CGA data.
+Falls Best performing model had high sensitivity 
+(91.0 %), moderate accuracy (73.2 %) but 
+low specificity (26.0 %).
+Chu et al., 2023 
+[26]
+Taiwan Hospital To develop a physical function prediction 
+model for hospitalized older adults using 
+machine learning with EHR and CGA data.
+Functional status XGBoost and RF had high predictive 
+accuracy (87 % and 85 %, respectively) and 
+CV accuracy (87 % and 86 %, respectively) 
+while logistic regression had low accuracy 
+(32 %) and CV accuracy (70 %). All 3 models 
+had high classification performance 
+(92–––94 %) and F1-score (0.94 – 0.95).
+Costa et al., 
+2014[27]
+Australia, Belgium, 
+Canada, Germany, 
+Iceland, India, and 
+Sweden
+Hospital To identify and compare geriatric 
+syndromes that influence the probability of 
+post-discharge outcomes among older ED 
+patients.
+LOS and discharge 
+to higher level of 
+care
+For LOS, the ML had moderate AUC (0.70); 
+for discharge to higher level of care, AUC 
+was low (0.59); for re-presenting to ED and 
+re-admission, AUC was moderate (0.67).
+Deschamps 
+et al., 2016 
+[28]
+France Community To develop a ML model to predict first fall 
+risk within one year.
+Falls Overall prediction accuracy was high (89 %) 
+but for non-fallers was low (61 %) and high 
+for fallers (82 %).
+Freeman et al., 
+2017[29]
+Canada Community and 
+residential aged 
+care
+To examine characteristics and health 
+deficit patterns among centenarian home 
+and long-term care clients in Ontario using 
+cluster analysis.
+Common health 
+problems
+Not evaluated
+Fumagalli et al., 
+2021[30]
+Italy Hospital To assess associations between geriatric 
+assessment tools and daily activity or sleep 
+in older patients with persistent AF using 
+an AI device.
+Physical activity 
+and sleep
+Not evaluated
+Ho et al., 2023 
+[31]
+USA Community To use CART analysis to identify baseline 
+patient factor combinations predicting 
+long-term mortality after emergency 
+general surgery.
+Mortality Not evaluated
+Hori et al., 2023 
+[32]
+Japan Hospital To examine the association between 
+hospitalisation-associated disability and 7 
+domains of frailty.
+Functional status Not evaluated
+Ikeda et al., 
+2022[33]
+Japan Community To construct an interpretable predictive ML 
+model for falls among community-dwelling 
+older adults.
+Falls The best performing model had high 
+accuracy (88 %), AUC (0.88) and F1-score 
+(0.89).
+Imura et al., 
+2021[34]
+Japan Hospital To identify factors influencing home 
+discharge after stroke rehabilitation using 
+ML.
+Discharge after 
+stroke inpatient 
+rehabilitation
+The best performing model had high 
+accuracy (84.8 %), AUC (0.854), sensitivity 
+(95.3 %), specificity (64.2 %) and PPV (84.0 
+%).
+(continued on next page)
+A.M. Mangio et al.                                                                                                                                                                                                                             International Journal of Medical Informatics 207 (2026) 106181 
+4 
+
+--- PDF page 6 ---
+Table 2 (continued)
+First author 
+and year 
+Country Setting Aim/Objective Target outcome Model performance**, ∧
+Kabeshova 
+et al., 2015 
+[35]
+France Community To evaluate the performance of three ANN 
+models in classifying recurrent vs. 
+nonrecurrent fallers among community- 
+dwelling older adults using clinical risk 
+factors.
+Falls The best performing model had high 
+accuracy (88.39 %), sensitivity (80.42 %), 
+specificity (92.54 %) and NPV (90.34 %).
+Kabeshova 
+et al., 2016 
+[36]
+France Community To compare the performance of linear and 
+non-linear models in predicting fall risk.
+Falls The best performing model had high 
+sensitivity (91.9 %), accuracy (76.2 %), NPV 
+(77.6 %) but moderate specificity (43.9 %), 
+PPV (72.0 %), and AUC (0.7).
+Kuo et al., 2019 
+[37]
+Taiwan Community To develop an ML-based system to predict 
+social frailty in older adults for improved 
+social service provision.
+Frailty (social 
+frailty)
+All ML models had high accuracy (94 % – 97 
+%), AUC (>0.90), kappa statistic (0.911 – 
+0.939), sensitivity (89.9 % – 97.3 %) and 
+specificity (87.3 % – 99.1 %).
+Lugade et al., 
+2014[38]
+USA Community To evaluate the feasibility of using an ANN 
+to map clinical measures to laboratory- 
+based balance assessments in older adults.
+Gait balance 
+control
+On average, using all input variables, the 
+ANN was able to calculate the CoMv-BoS 
+distance to within 1 cm and the BoS Area to 
+within 75 square cm for elderly adults.
+Makino et al., 
+2021[39]
+Japan Community To develop a simplified decision-tree 
+algorithm for fall prediction using easily 
+measurable predictors with longitudinal 
+cohort data
+Falls The best performing model had moderate 
+AUC (0.70), accuracy (65 %), sensitivity (62 
+%), PPV (66 %), and NPV (64 %).
+Mishra et al., 
+2022[40]
+USA Residential aged 
+care
+To develop an explainable, multifactorial 
+fall risk prediction system to support 
+personalized clinical care.
+Falls Yes: best performing model had high 
+accuracy (75 %), AUC (0.80), sensitivity (82 
+%), specificity (72 %), and F1-score (0.76).
+Mowbray et al., 
+2020[41]
+Canada Hospital To predict hospital admission in older ED 
+patients using ML methods and identify key 
+clinical and patient characteristics 
+associated with admission.
+Hospital admission The best performing model had high 
+accuracy (76 %) and AUC (0.80) but 
+moderate sensitivity (73 %) and specificity 
+(74 %).
+Nuutinen et al., 
+2017[42]
+Finland Residential aged 
+care
+To determine the most efficient variable 
+subsets to predict nursing home admission 
+for individuals and validate the accuracy.
+Nursing home 
+admission
+The best performing models had high 
+accuracy (76.2 – 77.6 %), AUC (0.838 – 
+0.847) and sensitivity (72.4 – 75.6 %).
+P´erez-Trujillo 
+et al., 2022 
+[43]
+Colombia Community To evaluate ML algorithms for predicting 
+life-space mobility restriction in older 
+adults and identify key risk factors.
+Mobility The best performing model had low mean 
+absolute and root mean square errors (10.28 
+and 12.91 respectively).
+Qiao et al., 2022 
+[44]
+USA Hospital To develop and evaluate a model for 
+predicting hospital mortality in older 
+cancer patients, and compare its 
+performance to existing indices.
+Mortality The best performing model had high AUC 
+(0.92) and outperformed traditional 
+prediction indices.
+Ramsdale et al., 
+2023[45]
+USA Community To develop an ML model to predict fall risk 
+within three months of cancer treatment 
+initiation in older adults.
+Falls The best performing model high AUC (0.75).
+Ren et al., 2022 
+[46]
+China Hospital To assess malnutrition prevalence in 
+hospitalized older adults with various 
+conditions and compare three diagnostic 
+criteria for predicting in-hospital 
+complications.
+In-hospital 
+complications
+Not evaluated
+Schiltz et al., 
+2020[47]
+USA Hospital To evaluate IADL dependency as a 
+predictor of hospital readmission using ML, 
+compared to other patient and health- 
+related factors.
+30-day readmission The best performing model had moderate 
+AUC (0.612).
+Sekaran et al., 
+2013[48]
+USA Community To assess whether fall frequency and injury 
+severity predict future ADL difficulties in 
+older adults.
+Functional status Not evaluated
+Sharifi et al., 
+2012[49]
+Iran Residential aged 
+care
+To develop a practical, easy and non- 
+expensive model for predicting mortality in 
+the elderly residents.
+Mortality Not evaluated
+Speiser et al., 
+2022[50]
+USA Community To develop prediction models to estimate 
+the likelihood of future mobility limitation 
+in older adults using repeated measures.
+Mobility The ML model had high AUC (0.81 – 0.84), 
+accuracy (73 – 76 %), specificity (84 – 88 %), 
+NPV (83 – 85 %) but moderate PPV (66 – 70 
+%) and sensitivity (60 – 68 %) with different 
+variables.
+Sullivan et al., 
+2019[51]
+USA Community To develop and validate an interpretable 
+model predicting 12-month mortality in 
+community-dwelling older adults using 
+routine nursing assessments to support care 
+planning.
+Mortality Yes: ML models had moderate values for 
+AUC (0.71 – 0.74), sensitivity (64 – 73 %), 
+specificity (58 – 70 %), PPV (63 – 68 %), and 
+MCC (0.31 – 0.35).
+van Gulick et al., 
+2022[52]
+The Netherlands Community To develop and internally validate a 
+clinical prediction model for falls in 
+community-dwelling older adults with 
+foot-related problems for use in podiatry 
+practice.
+Falls The model had moderate AUC (0.71), 
+sensitivity (68 %) and specificity (66 %).
+Verrusio et al., 
+2018[53]
+Italy Community To predict disability levels within one year 
+using a SVM model-based on standardized 
+CGA data and individual characteristics.
+Functional status Accuracy of ML models was moderate to (67 
+%   84 %).
+(continued on next page)
+A.M. Mangio et al.                                                                                                                                                                                                                             International Journal of Medical Informatics 207 (2026) 106181 
+5 
+
+--- PDF page 7 ---
+4.3. Assessment data used in ML
+The studies included in this review utilised a wide array of geriatric 
+assessment data spanning physical health, functional status, psycho-
+logical health, and socio-environmental domains (Table 3). The most 
+frequently used data types were medical history and comorbidities, 
+depression and mood disorders, cognitive impairment, ADL/IADL, fall 
+history, nutrition and mobility.
+In most studies, data were sourced from a combination of electronic 
+health records, surveys, and health assessments. A total of 20 studies 
+used multiple instruments to conduct geriatric assessments while 16 
+studies used comprehensive geriatric assessment (CGA) instruments. 
+The Resident Assessment Instrument (RAI) was the most common CGA 
+instrument for data collection, and six studies used the RAI or the 
+interRAI as their only data source. The instrument was also used in 
+combination with other sources, including ambulatory and discharge 
+databases [58] and a smart device [56] to capture physical activity, 
+heart rate and sleep times. Six studies used healthcare databases, such as 
+Medicare and emergency department databases as the only sources of 
+data for ML models. One study [28] did not report how data was 
+collected.
+4.4. Purpose of ML models
+Results indicate that geriatric assessment data are commonly used in 
+machine learning models to predict a range of health outcomes, 
+including falls, functional status, mortality, sarcopenia, in-hospital 
+complications, cognitive function, post-discharge outcomes, and gen-
+eral health. ML approaches are also applied to aged care service-related 
+outcomes such as emergency department visits, nursing home admis-
+sion, rehabilitation use, and to identify patient characteristics or explore 
+correlations between assessments and daily activity or sleep. A wide 
+range of algorithms were used, with logistic regression and random 
+forest being the most frequent, particularly in fall prediction. Falls were 
+the most common target outcome, with diverse algorithms applied, 
+reflecting a preference for ensemble-based models rather than a single 
+dominant approach. Most studies evaluated multiple algorithms to 
+identify the best-performing model, while those using a single algorithm 
+lacked justification for their choice, though selections were generally 
+appropriate for the study aims: e.g., the use of K-means clustering to 
+group centenarian client characteristics [29].
+4.5. Quality assessment
+Table 4 summarises the overall judgements for the model develop-
+ment and evaluations components, while Fig. 2 summarises the indi-
+vidual domains for each component (details for individual PROBAST +
+AI assessment are provided in supplementary material).
+4.5.1. Model development
+The overall quality for model development for most studies was 
+judged as ‘Unclear’ (75 %) because they did not provide evidence of 
+applying calibration techniques for the models: only four studies report 
+use of calibration techniques [40,52,55,57] (reflected in the Analysis 
+domain of the Development component in Fig. 2). Furthermore, only 16 
+studies reported the application of techniques to reduce the effects of 
+class imbalance, with only three using advanced techniques such as 
+synthetic minority oversampling technique (SMOTE) [20,33,45] and the 
+rest using a variety of simple techniques such as resampling, balanced 
+class weights and cross validation. The use of these class imbalance 
+mitigation techniques improved the performance metrics of the models.
+Only three studies implemented model interpretation techniques to 
+explain individual fall risk predictions [33,40,45,57], all of which used 
+SHapley Additive exPlanations (SHAP). This method enables care pro-
+viders to understand the factors contributing to high-risk classifications, 
+thereby supporting actionable preventive interventions. Mishra et al. 
+further applied SHAP to identify dominant predictors in their fall risk 
+model [40]. In contrast, 18 other studies assessed variable importance 
+but did not extend this to individual-level explanations. Additionally, 11 
+studies incorporated longitudinal data in model development: a 
+Table 2 (continued)
+First author 
+and year 
+Country Setting Aim/Objective Target outcome Model performance**, ∧
+Veyron et al., 
+2019[54]
+France Home care To assess whether smartphone-recorded 
+observations by home care aides can 
+predict ED visits in frail adults aged 75 +
+receiving in-home care.
+ED visit For 7-day prediction, ML modelling had high 
+specificity (98 %) and NPV (99 %) but 
+moderate AUC (0.7) and low sensitivity (36 
+%) and PPV (21 %). For 14-day prediction, 
+ML had moderate AUC (0.67).
+Woodman et al., 
+2021[55]
+Australia Hospital To evaluate whether adding clinical 
+features and disaggregated MPI domains 
+improves 12-month mortality prediction 
+using LR-MLE and ML algorithms in older 
+adults.
+Mortality The best performing model had a high 
+average accuracy (71.4 %).
+Yang et al., 2019 
+[56]
+Canada Community To assessed physical activity, heart rate, 
+and sleep in older adults with different fall 
+histories using wearables and to develop 
+fall risk models using wearable data, RAI- 
+HC, and their combination.
+Falls The best performing model had high 
+accuracy (83.8 – 89.2 %), sensitivity (77.5 – 
+90.8 %), precision (73 – 92.8 %), F1-score 
+(0.748 – 0.888) and AUC (0.865 – 0.894) 
+across different fall group classifications.
+Ye et al., 2020 
+[57]
+USA Multiple 
+settings
+To develop and validate an EHR-based tool 
+to predict fall risk in older adults.
+Falls The best performing model had high C- 
+statistic values (0.807 and 0.862).
+^Values for accuracy, specificity, sensitivity, NPV and PPV originally expressed as decimals have been converted to percentages 
+** where multiple models were evaluated, we present results for best performing model in this table (full results provided in supplementary material) 
+AF = arterial fibrillation 
+AUC = area under curve 
+LOS = length of stay 
+LR = Logistic regression 
+MCC = Matthews correlation coefficient 
+MLP = Multilayer perceptron 
+MPI = Multidimensional Prognostic Index 
+NPV = negative predictive value 
+PABAK = Prevalence and Bias-Adjusted Kappa 
+PPV = positive predictive value 
+RF = random forest 
+A.M. Mangio et al.                                                                                                                                                                                                                             International Journal of Medical Informatics 207 (2026) 106181 
+6 
+
+--- PDF page 8 ---
+valuable approach in geriatric care, where health deterioration can 
+occur rapidly.
+Five studies were judged to have high concerns for overall model 
+development, mostly due to small sample sizes, inadequate procedures 
+for missing data, and sub-optimal study design such as single-centre 
+cohorts, in addition to absence of calibration. However, most studies 
+were judged to have low concerns for overall applicability for model 
+development because of large sample sizes, relevant variables and out-
+comes, appropriate study designs and adequate techniques for data 
+preparation.
+4.5.2. Model evaluation
+No studies conducted external model validations and therefore none 
+had a judgement of “low” concern for overall risk of bias (RoB) for model 
+evaluation. Most were judged ‘Unclear’ (72.5 %) because, despite the 
+absence of external validation, internal validations were robust. Five 
+studies were judged to have a high concern for RoB due to very small 
+Table 3 
+Data from multidimensional geriatric assessment used for machine learning.
+Geriatric assessment data (grouped by domains of 
+multidimensional geriatric assessment [11,59])
+No. of papers (% of 
+included studies)
+Physical health domain ​
+Health problems and medical history, comorbidities 36 (90)
+Medications 24 (60)
+Falls history 24 (60)
+BMI 19 (47.5)
+Nutrition 17 (42.5)
+Vision 14 (35)
+Frailty 11 (27.5)
+Gait and balance 11 (27.5)
+Hearing 11 (27.5)
+Bladder issues/incontinence 10 (25.0)
+Pressure sores 7 (17.5)
+Weight loss 7 (17.5)
+Handgrip strength 6 (15.0)
+Self-rated and reported health 6 (15.0)
+Blood pressure 5 (12.5)
+Pain 5 (12.5)
+Sleep 5 (12.5)
+Arm and calf circumference 4 (10.0)
+Eating-related issues 3 (7.5)
+Stroke 3 (7.5)
+ECG 2 (5.0)
+Fracture history 2 (5.0)
+Lower limb proprioception 2 (5.0)
+Oral health 2 (5.0)
+Quality of life 2 (5.0)
+Muscle strength 1 (2.5)
+Postural sway 1 (2.5)
+Motor function 1 (2.5)
+Dyspnoea 1 (2.5)
+Overall/general health 1 (2.5)
+Functional status domain ​
+Physical performance/functional status 27 (67.5)
+ADL/IADL 24 (60)
+Mobility 10 (25.0)
+Psychological health domain ​
+Depression and mood disorder 30 (75.0)
+Cognitive impairment 27 (67.5)
+Anxiety 2 (5.0)
+Socio-environmental domain ​
+Social support/situation/marital status 16 (40.0)
+Living situation 13 (32.5)
+Education level 12 (30.0)
+Healthcare utilisation 12 (30.0)
+Caregiver distress and support 5 (12.5)
+Income 4 (10.0)
+Abbreviations:
+BMI = body mass index.
+ADL = Activities of Daily Living.
+IADL = Instrumental Activities of Daily Living.
+ECG = Electrocardiogram.
+Table 4 
+Overall judgements for individual studies based on PROBAST + AI tool.
+Study Overall 
+Quality 
+Concern: 
+Model 
+development
+Overall 
+Applicability 
+Concern: 
+Model 
+development
+Overall 
+Risk of 
+Bias 
+Concern: 
+Model 
+evaluation
+Overall 
+Applicability 
+Concern: 
+Model 
+evaluation
+Ambagtsheer 
+et al., 2020 
+[18]
+Unclear Low Unclear Low
+Armstrong 
+et al., 2012 
+[19]
+Unclear Low N/A N/A
+Byeon et al., 
+2021[20]
+Unclear Low Unclear Low
+Cano- 
+Escalera 
+et al., 2022 
+[21]
+High High High High
+Castillo-Olea 
+et al., 2020 
+[22]
+Unclear Low Unclear Low
+Cheng et al., 
+2015[23]
+Unclear Low Unclear Low
+Chew et al., 
+2022[24]
+Unclear Low N/A N/A
+Chu et al., 
+2022[25]
+Low Low Unclear Low
+Chu et al., 
+2023[26]
+Low Low Unclear Low
+Costa et al., 
+2014[27]
+Unclear Low Unclear Low
+Deschamps 
+et al., 2016 
+[28]
+Unclear Low Unclear Low
+Freeman 
+et al., 2017 
+[29]
+Unclear Low N/A N/A
+Fumagalli 
+et al., 2021 
+[30]
+High Low N/A N/A
+Ho et al., 
+2023[31]
+Unclear Low N/A N/A
+Hori et al., 
+2023[32]
+Unclear Low N/A N/A
+Ikeda et al., 
+2022[33]
+Unclear Low Unclear Low
+Imura et al., 
+2021[34]
+Unclear Low Unclear Low
+Kabeshova 
+et al., 2015 
+[35]
+Unclear Low Unclear Low
+Kabeshova 
+et al., 2016 
+[36]
+Unclear Low Unclear Low
+Kuo et al., 
+2019[37]
+Unclear Low Unclear Low
+Lugade et al., 
+2014[38]
+High High High High
+Makino et al., 
+2021[39]
+Unclear Low Unclear Low
+Mishra et al., 
+2022[40]
+High Low High Low
+Mowbray 
+et al., 2020 
+[41]
+Unclear Low Unclear Low
+Nuutinen 
+et al., 2017 
+[42]
+Unclear Low Unclear Low
+P´erez-Trujillo 
+et al., 2022 
+[43]
+Unclear Low High Low
+Qiao et al., 
+2022[44]
+Unclear Low Unclear Low
+(continued on next page)
+A.M. Mangio et al.                                                                                                                                                                                                                             International Journal of Medical Informatics 207 (2026) 106181 
+7 
+
+--- PDF page 9 ---
+sample sizes in addition to absence of external validation [21,40,43,56] 
+or lack of internal or external validation [38].
+4.6. Performance of ML models
+Thirty articles used internal validation to evaluate the performance 
+of ML models in their studies. Only two studies evaluated ML model 
+performance by benchmarking against traditional statistical prediction 
+tools, with ML models producing comparable [38] or superior results 
+[44]. The remaining studies assessed performance by conducting in-
+ternal validation using standard ML evaluation metrics such as accuracy, 
+sensitivity, specificity, F1-score, positive predictive value (PPV), nega-
+tive predictive value (NPV), and area under the receiver operating 
+characteristic curve (AUC). These metrics were applied inconsistently 
+across studies, with studies selecting various combinations based on 
+suitability and objectives. For an overview of these metrics and their 
+relevance in medical applications, see Rainio et al [60].
+Results of performance evaluations were mixed. Some models ach-
+ieved very high values across several metrics, while others showed only 
+moderate performance. For example, Sullivan et al. reported moderate 
+AUC (0.71–0.74), sensitivity (64–73 %), and specificity (58–70 %) for 
+mortality prediction using three models [51]. In contrast, Qiao et al. 
+achieved a high AUC of 0.92 and demonstrated superior performance 
+compared to traditional statistical models [44]. Notably, even within 
+individual studies, models often showed high performance on some 
+metrics but low performance on others. Ambagtsheer et al., for instance, 
+reported high accuracy (93.5 %), sensitivity (97.8 %), specificity (89.1 
+%), positive agreement (90 %), and Cohen’s Kappa (0.87) but the lowest 
+negative agreement (2.4 %) among all models evaluated [18]. Direct 
+comparisons across studies were challenging due to the variability in 
+metrics and evaluation methods. However, among the 29 studies that 
+reported accuracy, 19 (65.5 %) achieved high accuracy with their best- 
+performing models, while the remainder reported moderate accuracy. 
+These results were observed across diverse settings, target outcomes, 
+and ML algorithms, suggesting that performance was not linked to 
+specific algorithms, contexts or assessment. Interestingly, several studies 
+noted improved performance when models were trained on larger and 
+more comprehensive datasets [18,34,44,50,55,56]. For example, Imura 
+et al [34] found that combining basic demographic, functional, and 
+environmental variables significantly enhanced the model’s ability to 
+predict discharge outcomes after stroke rehabilitation.
+Among the 25 studies that compared multiple machine learning al-
+gorithms, XGBoost was the top-performing model in eight cases, making 
+it the most frequently identified best performer. These studies applied 
+XGBoost to predict outcomes such as functional status, falls, mobility, 
+and mortality, demonstrating its robustness and adaptability across 
+diverse domains. However, some studies used small sample sizes, lacked 
+proper separation between training and test datasets, or did not address 
+the potential risks of overfitting or data leakage. Notably, none of the 
+included studies conducted long-term evaluations to assess the real- 
+world impact of ML models on health outcomes in geriatric care; all 
+focused solely on model development and internal validation metrics.
+5. Discussion
+5.1. Main findings
+This scoping review identified and synthesized evidence from 40 
+studies applying machine learning (ML) to multidimensional geriatric 
+assessment data. The findings show that ML models are increasingly 
+used to predict a wide range of health outcomes in older adults, 
+including falls, functional decline, mortality, and hospital readmissions. 
+The most used assessment domains were medical history, cognitive 
+function, ADL/IADL, fall history, and nutrition: reflecting the complex 
+nature of ageing and the value of multidimensional data in capturing 
+this complexity. Among studies comparing multiple algorithms, 
+XGBoost consistently achieved the highest performance metrics across 
+diverse outcomes such as function, falls, mobility, and mortality. This is 
+likely due to its ensemble learning approach, which sequentially builds 
+decision trees using gradient descent to minimize error, resulting in 
+improved predictive accuracy [61–65]. Model performance varied 
+widely across studies, though most reported high accuracy. However, all 
+evaluations were based solely on internal validation, and thus, perfor-
+mance metrics should be interpreted with caution in the absence of 
+external or real-world validation.
+5.2. Challenges and implications for policy, practice and research
+The review also highlights several key challenges to the development 
+and deployment of machine learning (ML) models in aged care. First, the 
+heterogeneity of assessment tools limits comparability across studies. 
+While some studies employed comprehensive instruments such as the 
+interRAI systems, inconsistencies in data collection methods hinder 
+model generalizability. Standardizing assessment tools and data formats 
+are therefore essential to enable cross-study comparisons and support 
+model portability [66]. In addition to variability in data sources, the use 
+of small and homogenous samples in model development presents 
+another barrier to generalizability. Most studies were conducted in high- 
+income countries and trained models on local, setting-specific pop-
+ulations. This increases the risk of overfitting and bias, and limits the 
+applicability of these models to other contexts, particularly in under-
+represented or resource-constrained aged care settings. However, 
+caution is warranted in the pursuit of generalizability. Some ML models 
+rely on variables that are highly specific to the target population, care 
+setting, or clinical condition, and may weight these variables dispro-
+portionately [21–23,25,27,33,34,37,39–43,45]. For example, models 
+Table 4 (continued)
+Study Overall 
+Quality 
+Concern: 
+Model 
+development 
+Overall 
+Applicability 
+Concern: 
+Model 
+development 
+Overall 
+Risk of 
+Bias 
+Concern: 
+Model 
+evaluation 
+Overall 
+Applicability 
+Concern: 
+Model 
+evaluation
+Ramsdale 
+et al., 2023 
+[45]
+Unclear Low Unclear Low
+Ren et al., 
+2022[46]
+Unclear Low Unclear Low
+Schiltz et al., 
+2020[47]
+Unclear Low Unclear Low
+Sekaran 
+et al., 2013 
+[48]
+Unclear Low Unclear Low
+Sharifi et al., 
+2012[49]
+Unclear Unclear Unclear Unclear
+Speiser et al., 
+2022[50]
+Unclear Low Unclear Low
+Sullivan 
+et al., 2019 
+[51]
+Unclear Low Unclear Low
+van Gulick 
+et al., 2022 
+[52]
+Low Low Unclear Low
+Verrusio 
+et al., 2018 
+[53]
+Unclear Low Unclear Low
+Veyron et al., 
+2019[54]
+Unclear Low Unclear Low
+Woodman 
+et al., 2021 
+[55]
+Low Low Unclear Low
+Yang et al., 
+2019[56]
+High Low High Low
+Ye et al., 
+2020[57]
+Low Low Unclear Low
+N/A = Not applicable (only variable identification and/or their associations explored)
+A.M. Mangio et al.                                                                                                                                                                                                                             International Journal of Medical Informatics 207 (2026) 106181 
+8 
+
+--- PDF page 10 ---
+developed for cancer patients or stroke survivors may depend heavily on 
+condition-specific features such as disease duration or severity, which 
+may not be relevant to broader geriatric populations. Consequently, 
+such models may perform poorly when applied outside their original 
+context. Given these limitations, a pragmatic approach may be to 
+continue developing application-specific models tailored to well-defined 
+subgroups. These models can offer greater clinical relevance and accu-
+racy within their intended context, while future work can explore stra-
+tegies for modularity, adaptation, and transfer learning to support 
+broader applicability.
+Second, although less widespread in the included studies, data 
+quality issues can potentially limit the reliability of predictions [67]. 
+Some studies in this review relied on retrospective data from small study 
+populations. Self-reported reported variables were also used, which may 
+introduce risk of recall bias, especially in geriatric care settings where 
+cognitive conditions are common [35,43]. Handling of missing data in a 
+few studies was suboptimal or not reported, with simple approaches 
+such as variable exclusion or default imputation being applied, instead 
+of more robust techniques like multiple imputation. Moreover, imbal-
+anced datasets (e.g., datasets with disproportionately more non-fallers 
+than fallers) can reduce model performance [35,40,55] but less than 
+half of included studies reported applying mitigating techniques.
+Third, methodological limitations in model development and eval-
+uation were widespread. Most notably, external validation of ML models 
+in this field are lacking, with studies relying only on internal validation. 
+Moreover, in some cases, these internal validations were conducted with 
+very small sample sizes. High performance values in internal validations 
+do not always equate to clinical utility, especially when models are 
+complex and opaque [18,58]. The limited reporting of calibration 
+metrics such as Brier scores, calibration plots, and slopes, limits confi-
+dence in predictive reliability. Similarly, the failure to incorporate 
+interpretability in model development produces ‘black-box’ applications 
+that reduce clinical utility.
+These challenges must be addressed for the potential of ML and 
+geriatric assessments to have clinical value. The following are recom-
+mended high priority areas for further work in this field.
+5.2.1. Recommendations
+First, a consistent emphasis must be placed on external validation 
+across independent cohorts using larger multi-centre, national, or lon-
+gitudinal datasets to ensure generalisability and reproducibility of 
+model performance. This must also include temporal validation and the 
+use of prospective evaluation to assess model stability over time and 
+across populations. Complementary to this, decision-analytic evalua-
+tions, such as net-benefit and decision-curve analysis, must be explored 
+to assess ML model influence on clinical or policy decisions and their 
+downstream consequences. This is particularly relevant in geriatric care, 
+where resource constraints and individualized care goals necessitate 
+careful consideration of clinical utility and cost-effectiveness.
+Second, model calibration and comprehensive performance report-
+ing still require greater attention. Studies must aim to adhere to routine 
+reporting of calibration plots and statistics alongside discrimination 
+metrics, as well as transparent descriptions of feature selection, hyper- 
+parameter tuning, and model optimisation procedures: we encourage 
+the use of reporting frameworks such as TRIPOD-AI [68] and PROBAST 
++ AI [17] to promote transparency, comparability and reproducibility.
+Third, interpretability techniques must be incorporated into predic-
+tion models. Improving model interpretability is critical to bridging the 
+gap between technical performance and clinical adoption. Clinicians 
+have been reported to be hesitant in adopting ML tools that lack trans-
+parency or are difficult to interpret [69–72]. While many ML models 
+demonstrated high predictive accuracy, their complexity would make 
+them difficult for clinicians to understand and trust. Techniques such as 
+SHAP, LIME (Local Interpretable Model-agnostic Explanations), and 
+decision tree visualisations are increasingly being used to make model 
+outputs more transparent and explainable [73–77] but were only 
+applied by three studies in this review. Interpretable ML models allow 
+clinicians to see most influential features in predictions, fostering 
+Fig. 2. Distribution of individual PROBAST + AI overall judgments.
+A.M. Mangio et al.                                                                                                                                                                                                                             International Journal of Medical Informatics 207 (2026) 106181 
+9 
+
+--- PDF page 11 ---
+greater confidence in the model’s recommendations, facilitating inte-
+gration into clinical workflows for personalised-centred care.
+Finally, integrating ML into clinical workflows will require not only 
+technical compatibility with existing clinical information management 
+systems but also alignment with clinical decision-making processes and 
+regulatory standards: the study of Kuo et al in this review showed that 
+the use of application programming interfaces (APIs) is a simple and 
+viable way to integrate ML models [37]. Also, ethical and legal con-
+siderations are also paramount [4,78]. As ML models become more 
+autonomous and adaptive, ensuring transparency, accountability, and 
+alignment with societal values is crucial. Regulatory frameworks must 
+evolve to address these concerns, particularly in a sector like aged care 
+that provide care to the most vulnerable members of society.
+5.3. Strengths and limitations
+This review conducted a comprehensive search of multiple databases 
+and manual reference searches to maximise the likelihood of capturing 
+relevant articles in the literature. However, the review only included 
+studies conducted on people aged 65 + despite that in some contexts, 
+particularly in low-income settings where life expectancy is lower, 
+people aged 55 + or 60 + are considered elderly. The exclusion of the 
+studies conducted on people aged < 65 and grey literature may limit the 
+review findings.
+6. Conclusion
+In conclusion, the field of ML models using multidimensional geri-
+atric data is still in the early stages (as evidenced by the focus on model 
+development and internal evaluation in all included studies as well as 
+experimentation with various ML algorithms, and datasets). Several 
+challenges will need further research before ML using geriatric data can 
+be implemented into clinical practice. Sustained interdisciplinary 
+collaboration will also be essential to explore the impact of health out-
+comes to fully realise the potential of ML in geriatric care. Clinicians, 
+data scientists, informaticians, aged care practitioners, and policy-
+makers must work together to ensure that ML models are not only 
+technically robust but also clinically meaningful, ethical, and practically 
+implementable.
+CRediT authorship contribution statement
+Angela Mari Mangio: Writing – original draft, Formal analysis. 
+Caitlin Miller: Writing – original draft, Formal analysis. Lakshmi 
+Jayan: Formal analysis. Susan Ben-Dekhil: Formal analysis. Tiet-Hanh 
+Dao-Tran: Writing – review & editing, Supervision, Methodology, 
+Formal analysis, Conceptualization. Ronald Dendere: Writing – review 
+& editing, Supervision, Methodology, Formal analysis, 
+Conceptualization.
+Declaration of competing interest
+The authors declare that they have no known competing financial 
+interests or personal relationships that could have appeared to influence 
+the work reported in this paper.
+Appendix A. Supplementary data
+Supplementary data to this article can be found online at https://doi. 
+org/10.1016/j.ijmedinf.2025.106181.
+References
+[1] World Health Organisation. Ageing and health. 2021 [cited 2024 Aug 31; Available 
+from: https://www.who.int/news-room/fact-sheets/detail/ageing-and-health.
+[2] J. Guo, et al., Aging and aging-related diseases: from molecular mechanisms to 
+interventions and treatments, Signal Transduct. Target. Ther. 7 (1) (2022) 391.
+[3] M.J. Prince, et al., The burden of disease in older people and implications for 
+health policy and practice, Lancet 385 (9967) (2015) 549–562.
+[4] D.H. Lee, S.N. Yoon, Application of artificial intelligence-based technologies in the 
+healthcare industry: opportunities and challenges, Int. J. Environ. Res. Public 
+Health 18 (1) (2021) 1–18.
+[5] B. Ma, et al., Artificial intelligence in elderly healthcare: a scoping review, Ageing 
+Res. Rev. 83 (2023) 101808.
+[6] R.J. Woodman, A.A. Mangoni, A comprehensive review of machine learning 
+algorithms and their application in geriatric medicine: present and future, Aging 
+Clin. Exp. Res. 35 (11) (2023) 2363–2397.
+[7] E. Ramsdale, et al., An introduction to machine learning for clinicians: how can 
+machine learning augment knowledge in geriatric oncology? J Geriatr Oncol 12 (8) 
+(2021) 1159–1163.
+[8] C.-H. Lee, et al., Artificial intelligence-enabled digital transformation in elderly 
+healthcare field: Scoping review, Adv. Eng. Inf. 55 (2023) 101874.
+[9] M. Leghissa, ´A. Carrera, C.A. Iglesias, Machine learning approaches for frailty 
+detection, prediction and classification in elderly people: a systematic review, Int. 
+J. Med. Inform. 178 (2023) 105172.
+[10] M.P. Moghadam, et al., Impact of Artificial Intelligence in Nursing for Geriatric 
+Clinical Care for Chronic Diseases: a Systematic Literature Review, IEEE Access 12 
+(2024) 122557–122587.
+[11] S.G. Parker, et al., What is comprehensive geriatric assessment (CGA)? An 
+Umbrella Review. Age Ageing 47 (1) (2017) 149–155.
+[12] R. Parsons, et al., Inpatient fall prediction models: a scoping review, Gerontology 
+69 (1) (2023) 14–29.
+[13] A. Ramachandran, et al., Machine learning-based fall detection in geriatric 
+healthcare systems, in: In 2018 IEEE International Conference on Advanced 
+Networks and Telecommunications Systems (ANTS), 2018, pp. 1–6.
+[14] A. Das, P. Dhillon, Application of machine learning in measurement of ageing and 
+geriatric diseases: a systematic review, BMC Geriatr. 23 (1) (2023) 841.
+[15] H. Arksey, L. O’Malley, Scoping studies: towards a methodological framework, Int. 
+J. Soc. Res. Methodol. 8 (1) (2005) 19–32.
+[16] A.C. Tricco, et al., PRISMA extension for scoping reviews (PRISMA-ScR): checklist 
+and explanation, Ann. Intern. Med. 169 (7) (2018) 467–473.
+[17] K.G.M. Moons, et al., PROBAST+AI: an updated quality, risk of bias, and 
+applicability assessment tool for prediction models using regression or artificial 
+intelligence methods, BMJ 388 (2025) e082505.
+[18] R.C. Ambagtsheer, et al., The application of artificial intelligence (AI) techniques to 
+identify frailty within a residential aged care administrative data set, Int. J. Med. 
+Inform. 136 (2020) 104094.
+[19] J.J.M. Armstrong, et al., K-means cluster analysis of rehabilitation service users in 
+the home health care system of Ontario: examining the heterogeneity of a complex 
+geriatric population, Arch. Phys. Med. Rehabil. 93 (12) (2012) 2198–2205.
+[20] H. Byeon, Development of a physical impairment prediction model for Korean 
+elderly people using synthetic minority over-sampling technique and XGBoost, Int. 
+J. Adv. Comput. Sci. Appl. 12 (1) (2021) 34–41.
+[21] Cano-Escalera, G., et al., Risk factors for prediction of delirium at hospital 
+admittance. Expert Syst, 2022. 39(4): p. n/a.
+[22] Castillo-Olea, C., B. Garcia-Zapirain Soto, and C. Zu˜niga, Evaluation of prevalence 
+of the sarcopenia level using machine learning techniques: case study in Tijuana 
+Baja California, Mexico. Int J Environ Res Public Health, 2020. 17(6).
+[23] L. Cheng, et al., Opinion versus practice regarding the use of rehabilitation services 
+in home care: an investigation using machine learning algorithms, BMC Med. 
+Inform. Decis. Mak. 15 (1) (2015) 80.
+[24] S.T.H. Chew, et al., Prevalence and associated factors of sarcopenia in community- 
+dwelling older adults at risk of malnutrition, BMC Geriatr. 22 (1) (2022) 997.
+[25] W.M. Chu, et al., A model for predicting fall risks of hospitalized elderly in Taiwan- 
+a machine learning approach based on both electronic health records and 
+comprehensive geriatric assessment, Front. Med. 9 (2022) 937216.
+[26] W.-M. Chu, et al., A model for predicting physical function upon discharge of 
+hospitalized older adults in Taiwan—a machine learning approach based on both 
+electronic health records and comprehensive geriatric assessment, Front. Med. 10 
+(2023).
+[27] A.P. Costa, et al., Geriatric syndromes predict postdischarge outcomes among older 
+emergency department patients: Findings from the interRAI multinational 
+emergency department study, Acad. Emerg. Med. 21 (4) (2014) 422–433.
+[28] T. Deschamps, et al., A decision model to predict the risk of the first fall onset, Exp. 
+Gerontol. 81 (2016) 51–55.
+[29] S. Freeman, et al., Clinical characteristics and patterns of health deficits of 
+centenarians receiving home care and long-term care services, Exp. Gerontol. 99 
+(2017) 46–52.
+[30] S. Fumagalli, et al., Atrial fibrillation in older patients and artificial intelligence: a 
+quantitative demonstration of a link with some of the geriatric multidimensional 
+assessment tools—a preliminary report, Aging Clin. Exp. Res. 33 (2) (2021) 
+451–455.
+[31] V.P. Ho, et al., Functional status is key to long-term survival in emergency general 
+surgery conditions, J. Surg. Res. 283 (2023) 224–232.
+[32] K. Hori, et al., Exploring the frailty components related to hospitalization- 
+associated disability in older patients after cardiac surgery using a comprehensive 
+frailty assessment, Circ J 87 (8) (2023) 1112–1119.
+[33] T. Ikeda, et al., An interpretable machine learning approach to predict fall risk 
+among community-dwelling older adults: a three-year longitudinal study, J. Gen. 
+Intern. Med. 37 (11) (2022) 2727–2735.
+[34] T. Imura, et al., Decision tree algorithm identifies stroke patients likely discharge 
+home after rehabilitation using functional and environmental predictors, J. Stroke 
+Cerebrovasc. Dis. 30 (4) (2021).
+A.M. Mangio et al.                                                                                                                                                                                                                             International Journal of Medical Informatics 207 (2026) 106181 
+10 
+
+--- PDF page 12 ---
+[35] A. Kabeshova, et al., Artificial neural network and falls in community-dwellers: a 
+new approach to identify the risk of recurrent falling? J. Am. Med. Dir. Assoc. 16 
+(4) (2015) 277–281.
+[36] A. Kabeshova, et al., Falling in the elderly: do statistical models matter for 
+performance criteria of fall prediction? results from two large population-based 
+studies, Eur. J. Intern. Med. 27 (2016) 48–56.
+[37] K.-M. Kuo, et al., Development of a clinical support system for identifying social 
+frailty, Int. J. Med. Inform. 132 (2019) 103979.
+[38] V. Lugade, et al., An artificial neural network estimation of gait balance control in 
+the elderly using clinical evaluations, PLoS One 9 (5) (2014) e97595.
+[39] K. Makino, et al., Simplified decision-tree algorithm to predict falls for community- 
+dwelling older adults, J. Clin. Med. 10 (21) (2021) 5184.
+[40] A.K. Mishra, et al., Explainable fall risk prediction in older adults using gait and 
+geriatric assessments, Front Digit Health 4 (2022) 869812.
+[41] F. Mowbray, et al., Predicting hospital admission for older emergency department 
+patients: Insights from machine learning, Int. J. Med. Inform. 140 (2020) 104163.
+[42] M. Nuutinen, et al., Development and validation of classifiers and variable subsets 
+for predicting nursing home admission, BMC Med. Inform. Decis. Mak. 17 (1) 
+(2017) 39.
+[43] M. P´erez-Trujillo, et al., Predicting restriction of life-space mobility: a machine 
+learning analysis of the IMIAS study, Aging Clin. Exp. Res. 34 (11) (2022) 
+2761–2768.
+[44] E.M. Qiao, et al., Evaluating high-dimensional machine learning models to predict 
+hospital mortality among older patients with cancer, JCO Clin Cancer Inform 6 
+(2022) e2100186.
+[45] E. Ramsdale, et al., Supervised learning applied to classifying fallers versus non- 
+fallers among older adults with cancer, J Geriatr Oncol 14 (4) (2023).
+[46] S.S. Ren, et al., Machine learning-based prediction of in-hospital complications in 
+elderly patients using GLIM-, SGA-, and ESPEN 2015-diagnosed malnutrition as a 
+factor, Nutrients 14 (15) (2022).
+[47] N.K. Schiltz, et al., Impact of instrumental activities of daily living limitations on 
+hospital readmission: an observational study using machine learning, J. Gen. 
+Intern. Med. 35 (10) (2020) 2865–2872.
+[48] N.K. Sekaran, et al., Fall-associated difficulty with activities of daily living in 
+functionally independent individuals aged 65 to 69 in the United States: a cohort 
+study, J. Am. Geriatr. Soc. 61 (1) (2013) 96–100.
+[49] F. Sharifi, et al., Older people’s mortality index: development of a practical model 
+for prediction of mortality in nursing homes (Kahrizak elderly Study), Geriatr. 
+Gerontol. Int. 12 (1) (2012) 36–45.
+[50] J.L. Speiser, et al., Predicting future mobility limitation in older adults: a machine 
+learning analysis of health ABC study data, J. Gerontol. A Biol. Sci. Med. Sci. 77 (5) 
+(2022) 1072–1078.
+[51] S.S. Sullivan, et al., Mortality risk in homebound older adults predicted from 
+routinely collected nursing data, Nurs. Res. 68 (2) (2019) 156–166.
+[52] D.J.J. van Gulick, et al., A prediction model for falls in community-dwelling older 
+adults in podiatry practices, Gerontology 68 (11) (2022) 1214–1223.
+[53] W. Verrusio, et al., A new tool for the evaluation of the rehabilitation outcomes in 
+older persons: a machine learning model to predict functional status 1 year ahead, 
+Eur Geriatr Med 9 (5) (2018) 651–657.
+[54] J.H. Veyron, et al., Home care aides’ observations and machine learning algorithms 
+for the prediction of visits to emergency departments by older community-dwelling 
+individuals receiving home care assistance: a proof of concept study, PLoS One 14 
+(8) (2019) e0220002.
+[55] R.J. Woodman, et al., Use of multiprognostic index domain scores, clinical data, 
+and machine learning to improve 12-month mortality risk prediction in older 
+hospitalized patients: prospective cohort study, J. Med. Internet Res. 23 (6) (2021) 
+e26139–e.
+[56] Y. Yang, et al., Fall risk classification in community-dwelling older adults using a 
+smart wrist-worn device and the resident assessment instrument-home care: 
+prospective observational study, JMIR Aging 21 (6) (2019) e12153–e.
+[57] C. Ye, et al., Identification of elders at higher risk for fall with statewide electronic 
+health records and a machine learning algorithm, Int. J. Med. Inform. 137 (2020) 
+104105.
+[58] A. Jones, et al., Predicting hospital and emergency department utilization among 
+community-dwelling older adults: statistical and machine learning approaches, 
+PLoS One 13 (11) (2018) e0206662.
+[59] S. Volpato, J.M. Guralnik, The Different Domains of the Comprehensive Geriatric 
+Assessment, in: A. Pilotto, F.C. Martin (Eds.), Comprehensive Geriatric Assessment, 
+Springer International Publishing, Cham, 2018, pp. 11–25.
+[60] O. Rainio, J. Teuho, R. Kl´en, Evaluation metrics and statistical tests for machine 
+learning, Sci. Rep. 14 (1) (2024) 6086.
+[61] M. Wiens, et al., A Tutorial and Use Case example of the eXtreme Gradient Boosting 
+(XGBoost) Artificial Intelligence Algorithm for Drug Development applications, 
+Clin. Transl. Sci. 18 (3) (2025) e70172.
+[62] C. Bent´ejac, A. Cs¨org˝o, G. Martínez-Mu˜noz, A comparative analysis of gradient 
+boosting algorithms, Artif. Intell. Rev. 54 (3) (2021) 1937–1967.
+[63] S. Fafalios, P. Charonyktakis, and I, Tsamardinos, Gradient Boosting Trees, 2020.
+[64] I. Babajide Mustapha, F. Saeed, Bioactive Molecule Prediction using Extreme 
+Gradient Boosting, Molecules 21 (8) (2016) 983.
+[65] M. Skurichina, R.P.W. Duin, Bagging, Boosting and the Random Subspace Method 
+for Linear Classifiers, Pattern Analysis & Applications 5 (2) (2002) 121–135.
+[66] M. Chowdhury, et al., Use of machine learning and artificial intelligence methods 
+in geriatric mental health research involving electronic health record or 
+administrative claims aata: a systematic review. Front, Psychiatry 12 (2021).
+[67] R.T. Olender, S. Roy, P.S. Nishtala, Application of machine learning approaches in 
+predicting clinical outcomes in older adults – a systematic review and meta- 
+analysis, BMC Geriatr. 23 (1) (2023) 561.
+[68] G.S. Collins, et al., TRIPOD+AI statement: updated guidance for reporting clinical 
+prediction models that use regression or machine learning methods, BMJ 385 
+(2024) e078378.
+[69] A. Couckuyt, et al., Challenges in translational machine learning, Hum. Genet. 141 
+(9) (2022) 1451–1466.
+[70] C.J. Kelly, et al., Key challenges for delivering clinical impact with artificial 
+intelligence, BMC Med. 17 (1) (2019) 195.
+[71] S.A. Alowais, et al., Revolutionizing healthcare: the role of artificial intelligence in 
+clinical practice, BMC Med. Educ. 23 (1) (2023) 689.
+[72] M.P. Recht, et al., Integrating artificial intelligence into the clinical practice of 
+radiology: challenges and recommendations, Eur. Radiol. 30 (6) (2020) 
+3576–3584.
+[73] S. Band, et al., Application of explainable artificial intelligence in medical health: a 
+systematic review of interpretability methods, Inf. Med. Unlocked 40 (2023) 
+101286.
+[74] Bifarin, O.O., Interpretable machine learning with tree-based shapley additive 
+explanations: application to metabolomics datasets for binary classification. 
+bioRxiv, 2022: p. 2022.09.19.508550.
+[75] V. Vimbi, N. Shaffi, M. Mahmud, Interpreting artificial intelligence models: a 
+systematic review on the application of LIME and SHAP in Alzheimer’s disease 
+detection, Brain Inf. 11 (1) (2024) 10.
+[76] N. Nordin, et al., An explainable predictive model for suicide attempt risk using an 
+ensemble learning and Shapley Additive Explanations (SHAP) approach, Asian J. 
+Psychiatr. 79 (2023) 103316.
+[77] Y. Nohara, et al., Explanation of machine learning models using shapley additive 
+explanation and application for real data in hospital, Comput. Methods Programs 
+Biomed. 214 (2022) 106584.
+[78] M. Lupton, Some ethical and legal consequences of the application of artificial 
+intelligence in the field of medicine, Trends Med (2018).
+A.M. Mangio et al.                                                                                                                                                                                                                             International Journal of Medical Informatics 207 (2026) 106181 
+11 
